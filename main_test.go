@@ -1,28 +1,23 @@
 package main
 
-import (
-	"code.uber.internal/sooz/key-value/.tmp/.go/goroot/src/testing"
-	"fmt"
-)
+import "testing"
 
 func main() {
-	
+
 }
 
-type TestKeyValueCache interface{
+type TestKeyValueCache interface {
 	Put(key, value string) error
 	Read(key string) string
-	Update(key,value string) error
+	Update(key, value string) error
 	Delete(key string) error
 }
 
-type TestSimpleKeyValueCache struct{
+type TestSimpleKeyValueCache struct {
 	data map[string]string
 }
 
-var _ package.TestSimpleKeyValueCache = (*testTestSimpleKeyValueCache)(nil)
-
-var handleInputKVCache = &TestSimpleKeyValueCache{ map[string]string{}}
+var testCache = &TestSimpleKeyValueCache{map[string]string{}}
 
 var testInputHappy = `
 PUT name Sooz
@@ -35,18 +30,31 @@ var testOutputHappy = `
 Sooz
 Betty`
 
-func (c *TestSimpleKeyValueCache) TestHandleInput(t *testing.T)error {
-	//create actual value using function
-	actual := handleInput(handleInputKVCache, testInputHappy)
-
-	if actual.Error() != nil{
-		t.Errorf("Error: handleInput function not working. Expected % v, actual %v", actual, testOutputHappy)
+func Test_simpleKeyValueCache_Put(t *testing.T) {
+	type fields struct {
+		data map[string]string
 	}
+	type args struct {
+		key   string
+		value string
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		wantErr bool
+	}{
 
-	fmt.Println("SUCCESS")
-
-	return nil
-
-
-
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &simpleKeyValueCache{
+				data: tt.fields.data,
+			}
+			if err := c.Put(tt.args.key, tt.args.value); (err != nil) != tt.wantErr {
+				t.Errorf("simpleKeyValueCache.Put() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
 }
