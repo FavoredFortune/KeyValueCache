@@ -36,10 +36,7 @@ func handleInput(cache KeyValueCache, input string) error {
 			if len(cmd) < 3{
 				return fmt.Errorf("PUT command incomplete: %v", cmd)
 			}
-			err := cache.Put(cmd[1], cmd[2])
-			if err != nil {
-				return err
-			}
+			cache.Put(cmd[1], cmd[2])
 
 		case "READ":
 			if len(cmd) < 2{
@@ -74,7 +71,7 @@ func handleInput(cache KeyValueCache, input string) error {
 }
 
 type KeyValueCache interface{
-	Put(key, value string) error
+	Put(key, value string) string
 	Read(key string) string
 	Update(key,value string) error
 	Delete(key string) error
@@ -84,13 +81,13 @@ type simpleKeyValueCache struct{
 	data map[string]string
 }
 
-
-func (c *simpleKeyValueCache) Put(key,value string) error{
+//need to update to return string, since no error possible
+func (c *simpleKeyValueCache) Put(key,value string) string{
 	c.data[key] = value
-	return nil
+	return "put success"
 }
 
-func (c *simpleKeyValueCache) Read(key string) (string){
+func (c *simpleKeyValueCache) Read(key string) string{
 	return c.data[key]
 }
 
