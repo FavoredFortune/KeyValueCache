@@ -21,3 +21,4 @@
 ## Resources
 - gitignore generated on gitignore.io
 - Training with Scott Hornberger
+- Article on testing in Go: https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-golang-619653f90742
