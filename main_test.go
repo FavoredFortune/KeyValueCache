@@ -1,6 +1,11 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
+	//not sure if this is needed?
 	testPut(handleInput(cache,testInputHappy), testOutputHappy)
 
 }
@@ -14,8 +19,13 @@ Sooz`
 
 var cache = &simpleKeyValueCache{data: map[string]string{}}
 
-func (c *simpleKeyValueCache) testPut( key,value, expected string) error {
-	actual := Put(testInputHappy)
+func (c *simpleKeyValueCache) testPut( key,value, expected string) {
 
-	if actual !
+	//how do I call the Put method from the main file here?
+	actual := Put (testInputHappy)
+
+	if actual != testOutputHappy {
+		message := fmt.Sprintf("Put failed: Got %v, but expected %v", actual, testOutputHappy)
+		panic(message)
+	}
 }
