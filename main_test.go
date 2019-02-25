@@ -1,31 +1,18 @@
 package main
 
 import (
-	"fmt"
+
+	"testing"
 )
 
-func main() {
-	//not sure if this is needed?
-	testPut(handleInput(cache,testInputHappy), testOutputHappy)
 
-}
+func TestPut(t *testing.T) {
+	cache := &simpleKeyValueCache{data: map[string]string{}}
 
 
-var testInputHappy = `
-name Sooz
-`
-var testOutputHappy = `
-Sooz`
+	cache.Put("name is key","value is Troy Dai")
 
-var cache = &simpleKeyValueCache{data: map[string]string{}}
-
-func (c *simpleKeyValueCache) testPut( key,value, expected string) {
-
-	//how do I call the Put method from the main file here?
-	actual := Put (testInputHappy)
-
-	if actual != testOutputHappy {
-		message := fmt.Sprintf("Put failed: Got %v, but expected %v", actual, testOutputHappy)
-		panic(message)
+	if cache.Read("name is key") != "value is Troy Dai" {
+		t.Fail()
 	}
 }
