@@ -44,6 +44,21 @@ func TestPut(t *testing.T) {
 		assert.Equal(t, a, value2)
 
 	})
+
+	//added to align with read error and tests
+	t.Run(" put test for error working", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+		key2 := ""
+		value2 := ""
+
+		err2 := testCache.Put(key2, value2)
+		assert.Error(t,err2,"put failed: check key '' and value '' parameters")
+
+		_,err := testCache.Read(key2)
+		assert.ObjectsAreEqualValues(err, "read failed: key '' invalid")
+
+	})
 }
 
 
@@ -64,7 +79,7 @@ func TestRead(t *testing.T){
 		assert.Equal(t, f, value)
 	})
 
-	 t.Run("second read test", func(t *testing.T) {
+	 t.Run("read test for error working", func(t *testing.T) {
 		testCache := &SimpleKeyValueCache{map[string]string{}}
 		require.NotNil(t, testCache)
 
@@ -107,7 +122,7 @@ func TestUpdate(t *testing.T){
 		assert.ObjectsAreEqualValues(read, value)
 	})
 	
-	t.Run("Update error works", func(t *testing.T) {
+	t.Run("update error works", func(t *testing.T) {
 		testCache := &SimpleKeyValueCache{map[string]string{}}
 		require.NotNil(t, testCache)
 
@@ -119,6 +134,27 @@ func TestUpdate(t *testing.T){
 
 		_, read := testCache.Read(key)
 		assert.ObjectsAreEqualValues(read, value)
+	})
+
+	t.Run("empty key Update error test", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Benelli"
+
+		put := testCache.Put(key,value)
+		assert.NoError(t,put)
+
+		key = ""
+		value = "Benny"
+		err := testCache.Update(key, value)
+
+		assert.ObjectsAreEqualValues(err, "update failed: key '%v' not in cache")
+
+		_, read := testCache.Read(key)
+		assert.ObjectsAreEqualValues(read, value)
+
 	})
 
 }
