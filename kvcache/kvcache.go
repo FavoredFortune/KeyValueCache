@@ -7,7 +7,7 @@ import (
 //interface for use by all files (public by using cap at start of name)
 type KeyValueCache interface{
 	Put(key, value string) error
-	Read(key string) string
+	Read(key string) (string,error)
 	Update(key,value string) error
 	Delete(key string) error
 }
@@ -27,14 +27,19 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 	err := c.data[key]
 	if err != "" {
 		return nil
-
 	}
 	return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
 
 }
 
-func (c *SimpleKeyValueCache) Read(key string) string{
-	return c.data[key]
+//updated interface and method to return both string and error when realized SKVC wouldn't return an error when an empty string was entered as a key - not cool
+func (c *SimpleKeyValueCache) Read(key string) (string,error){
+	f, err := c.data[key]
+	if err != true {
+		return "",fmt.Errorf("read failed: key '%v' invalid", key)
+	}
+	return f, nil
+
 }
 
 func (c *SimpleKeyValueCache) Update(key, value string) error{

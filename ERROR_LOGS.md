@@ -32,3 +32,40 @@ FAIL
 exit status 1
 FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s
 ```
+-2/26/19 - 10 am
+```=== RUN   TestSimpleKeyValueCache
+   === RUN   TestSimpleKeyValueCache/new_cache_created
+   --- PASS: TestSimpleKeyValueCache (0.00s)
+       --- PASS: TestSimpleKeyValueCache/new_cache_created (0.00s)
+   === RUN   TestPut
+   === RUN   TestPut/it_can_put_and_read
+   === RUN   TestPut/second_put_test
+   --- PASS: TestPut (0.00s)
+       --- PASS: TestPut/it_can_put_and_read (0.00s)
+       --- PASS: TestPut/second_put_test (0.00s)
+   === RUN   TestRead
+   === RUN   TestRead/it_can_read
+   === RUN   TestRead/second_read_test
+   --- FAIL: TestRead (0.00s)
+       --- PASS: TestRead/it_can_read (0.00s)
+       --- FAIL: TestRead/second_read_test (0.00s)
+           kvcache_test.go:83: 
+               	Error Trace:	kvcache_test.go:83
+               	Error:      	Not equal: 
+               	            	expected: *errors.errorString(&errors.errorString{s:"read failed: key '' invalid"})
+               	            	actual  : string("read failed: key ' ' invalid")
+               	Test:       	TestRead/second_read_test
+   FAIL
+   exit status 1
+   FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s```
+
+
+## IDE Error Logs
+-2/25 & 26/19
+```# command-line-arguments [command-line-arguments.test]
+   ./kvcache_test.go:11:16: undefined: NewSimpleKVCache
+   ./kvcache_test.go:23:17: undefined: SimpleKeyValueCache
+   ./kvcache_test.go:39:17: undefined: SimpleKeyValueCache
+   
+   Compilation finished with exit code 2
+```
