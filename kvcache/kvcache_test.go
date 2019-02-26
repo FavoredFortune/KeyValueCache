@@ -26,8 +26,6 @@ func TestPut(t *testing.T) {
 		value := "testValue"
 		err := cache.Put(key,value)
 
-
-		//git not recognizing changes to files
 		assert.NoError(t,err)
 		assert.ObjectsAreEqualValues(cache.Read(key),value)
 
