@@ -1,32 +1,33 @@
 package kvcache
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 
+func TestSimpleKeyValueCache(t *testing.T) {
+	t.Run("new cache created", func(t *testing.T) {
+		cache := NewSimpleKVCache()
+		assert.NotNil(t, cache)
+	})
+
+}
+
 func TestPut(t *testing.T) {
-	//IDE testing isn't recognizing cache, but command line tests are running correctly
-	cache := &SimpleKeyValueCache{ map[string]string{}}
 
-	if cache ==nil {
-		fmt.Println("cache is broken")
-	}
 
-	//testing long strings
-	if error(cache.Put("name is key","value is Troy Dai")) !=nil {
-		t.Errorf("Put Test failed: %v, %v, %v", cache)
-	}
+	t.Run("it can put and read", func(t *testing.T) {
 
-	////testing one empty string
-	//cache.Put("","Steve")
-	//if cache.Read("") != "Steve"{
-	//	t.Fail()
-	//}
-	////testing one empty string
-	//cache.Put("name","")
-	//if cache.Read("name") != ""{
-	//	t.Fail()
-	//}
+		cache := NewSimpleKVCache()
+		require.NotNil(t, cache)
 
+		key := "testKey"
+		value := "testValue"
+		err := cache.Put(key,value)
+
+		assert.NoError(t,err)
+		assert.ObjectsAreEqualValues(cache.Read(key),value)
+
+	})
 }
