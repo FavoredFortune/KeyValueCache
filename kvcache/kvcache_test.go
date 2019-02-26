@@ -8,26 +8,44 @@ import (
 
 func TestSimpleKeyValueCache(t *testing.T) {
 	t.Run("new cache created", func(t *testing.T) {
-		cache := NewSimpleKVCache()
-		assert.NotNil(t, cache)
+		testCache := NewSimpleKVCache()
+		assert.NotNil(t, testCache)
 	})
 
 }
 
-func TestPut(t *testing.T) {
 
+//not working going to try writing other tests and revisit
+func TestPut(t *testing.T) {
 
 	t.Run("it can put and read", func(t *testing.T) {
 
-		cache := NewSimpleKVCache()
-		require.NotNil(t, cache)
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
 
 		key := "testKey"
 		value := "testValue"
-		err := cache.Put(key,value)
+		err := testCache.Put(key,value)
 
 		assert.NoError(t,err)
-		assert.ObjectsAreEqualValues(cache.Read(key),value)
+		assert.ObjectsAreEqualValues(testCache.Read(key),value)
 
+	})
+}
+
+//also doesn't work
+func TestRead(t *testing.T){
+	t.Run("it can read", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Scott"
+
+		err := testCache.Put(key,value)
+
+		assert.NoError(t, err)
+
+		assert.Equal(t, testCache.Read(key), value)
 	})
 }
