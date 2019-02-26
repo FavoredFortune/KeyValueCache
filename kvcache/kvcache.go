@@ -23,13 +23,14 @@ func NewSimpleKVCache() *SimpleKeyValueCache{
 
 //per Troy don't need to check for cache here, this is a method of c - it is like "this in Java"
 func (c *SimpleKeyValueCache) Put(key,value string) error{
+	c.data[key]=value
+	err := c.data[key]
+	if err != "" {
+		return nil
 
-			_, keyExists := c.data[key]
-			if keyExists {
-				c.data[key] = value
-				return nil
-			}
-		return fmt.Errorf("put failed: key '%v' or value '%v' does not exist: ",key, value)
+	}
+	return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
+
 }
 
 func (c *SimpleKeyValueCache) Read(key string) string{
