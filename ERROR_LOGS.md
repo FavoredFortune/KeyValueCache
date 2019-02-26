@@ -57,7 +57,39 @@ FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s
                	Test:       	TestRead/second_read_test
    FAIL
    exit status 1
-   FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s```
+   FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s
+   ```
+-2/26/10 10:38am (testing Update)
+```=== RUN   TestSimpleKeyValueCache
+   === RUN   TestSimpleKeyValueCache/new_cache_created
+   --- PASS: TestSimpleKeyValueCache (0.00s)
+       --- PASS: TestSimpleKeyValueCache/new_cache_created (0.00s)
+   === RUN   TestPut
+   === RUN   TestPut/it_can_put_and_read
+   === RUN   TestPut/second_put_test
+   --- PASS: TestPut (0.00s)
+       --- PASS: TestPut/it_can_put_and_read (0.00s)
+       --- PASS: TestPut/second_put_test (0.00s)
+   === RUN   TestRead
+   === RUN   TestRead/it_can_read
+   === RUN   TestRead/second_read_test
+   --- PASS: TestRead (0.00s)
+       --- PASS: TestRead/it_can_read (0.00s)
+       --- PASS: TestRead/second_read_test (0.00s)
+   === RUN   TestUpdate
+   === RUN   TestUpdate/it_can_update
+   --- FAIL: TestUpdate (0.00s)
+       --- FAIL: TestUpdate/it_can_update (0.00s)
+           kvcache_test.go:107: 
+               	Error Trace:	kvcache_test.go:107
+               	Error:      	Not equal: 
+               	            	expected: <nil>(<nil>)
+               	            	actual  : string("Benny")
+               	Test:       	TestUpdate/it_can_update
+   FAIL
+   exit status 1
+   FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.014s
+   ```
 
 
 ## IDE Error Logs

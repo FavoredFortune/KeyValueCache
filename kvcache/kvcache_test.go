@@ -84,3 +84,41 @@ func TestRead(t *testing.T){
 		assert.ObjectsAreEqualValues(err2, "read failed: key ' ' invalid")
 	})
 }
+
+func TestUpdate(t *testing.T){
+
+	t.Run("it can update", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Benelli"
+
+		put := testCache.Put(key,value)
+		assert.NoError(t,put)
+
+		key = "name"
+		value = "Benny"
+		err := testCache.Update(key, value)
+
+		assert.Equal(t, err, nil)
+
+		_, read := testCache.Read(key)
+		assert.ObjectsAreEqualValues(read, value)
+	})
+	
+	t.Run("Update error works", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Hero"
+		err := testCache.Update(key, value)
+
+		assert.ObjectsAreEqualValues(err, "update failed: key '%v' not in cache")
+
+		_, read := testCache.Read(key)
+		assert.ObjectsAreEqualValues(read, value)
+	})
+
+}
