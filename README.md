@@ -9,13 +9,20 @@
 ## Technologies
 - Go
 - Goland (IDE)
-- _more soon_
+- Stretchr/testify API (github.com/stretchr/testify)
+- Cobra API (https://github.com/spf13/cobra)
+_more soon_
 
 ## User Stories
 
-- Developer story details coming soon from Scott
+#### NEW
+- As a user I want to put in code arguments like `put animal horse` that work with a Go CLI 'client' to take the commands in a terminal and add the values `animal` and `horse` as a `key:value` pair in this `SimpleKeyValueCache` construct
+- As a user I want to type in the command `read animal` to the CLI and have the Go application return `>>horse`
+#### Original
 
-
+- As a developer I want unit tests for each method (`Put`, `Read`, `Update`, `Delete`) that prove it works with both good and bad input
+- As a developer I want to use the Cobra library to build the CLI (per Troy Dai)
+- More developer story details coming soon from Scott
 
 
 ## Resources
@@ -23,7 +30,11 @@
 - gitignore generated on gitignore.io
 - Article on testing in Go: https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-golang-619653f90742
 - BETTER article on testing in Go with your own written unit tests: https://www.calhoun.io/how-to-test-with-go/
+- On building a simple CLI in Go: https://blog.rapid7.com/2016/08/04/build-a-simple-cli-tool-with-golang/
+- More on flags in Go: https://gobyexample.com/command-line-flags
+- If I want to build a CLI using the Go CLI library: https://tutorialedge.net/golang/building-a-cli-in-go/
 
+-
 
 ## Reference code from earlier in the project
 
