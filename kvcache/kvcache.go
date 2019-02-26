@@ -16,7 +16,7 @@ type SimpleKeyValueCache struct{
 	data map[string]string
 }
 
-//AHA! I was missing the constructor function for the cache! This is why tests were breaking (I hope)
+//AHA! I was missing the constructor function for the cache! This is why tests were breaking NOPE - But leaving it just in case
 func NewSimpleKVCache() *SimpleKeyValueCache{
 	return &SimpleKeyValueCache{map[string]string{}}
 }

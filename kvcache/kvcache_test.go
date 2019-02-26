@@ -30,5 +30,4 @@ func TestPut(t *testing.T) {
 		assert.ObjectsAreEqualValues(cache.Read(key),value)
 
 	})
-
 }
