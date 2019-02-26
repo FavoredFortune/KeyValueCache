@@ -11,11 +11,9 @@ func TestSimpleKeyValueCache(t *testing.T) {
 		testCache := NewSimpleKVCache()
 		assert.NotNil(t, testCache)
 	})
-
 }
 
 func TestPut(t *testing.T) {
-
 	t.Run("it can put and read", func(t *testing.T) {
 
 		testCache := &SimpleKeyValueCache{map[string]string{}}
@@ -28,7 +26,6 @@ func TestPut(t *testing.T) {
 		assert.NoError(t,err)
 		b, _ := testCache.Read(key)
 		assert.Equal(t, b, value)
-
 	})
 
 	t.Run("second put test", func(t *testing.T) {
@@ -42,7 +39,6 @@ func TestPut(t *testing.T) {
 
 		a,_ := testCache.Read(key2)
 		assert.Equal(t, a, value2)
-
 	})
 
 	//added to align with read error and tests
@@ -57,7 +53,6 @@ func TestPut(t *testing.T) {
 
 		_,err := testCache.Read(key2)
 		assert.ObjectsAreEqualValues(err, "read failed: key '' invalid")
-
 	})
 }
 
@@ -128,7 +123,6 @@ func TestRead(t *testing.T){
 }
 
 func TestUpdate(t *testing.T){
-
 	t.Run("it can update", func(t *testing.T) {
 		testCache := &SimpleKeyValueCache{map[string]string{}}
 		require.NotNil(t, testCache)
@@ -181,7 +175,46 @@ func TestUpdate(t *testing.T){
 
 		_, read := testCache.Read(key)
 		assert.ObjectsAreEqualValues(read, value)
-
 	})
 
+}
+
+func TestDelete(t *testing.T){
+	t.Run("it deletes", func(t *testing.T){
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Benelli"
+
+		put := testCache.Put(key,value)
+		assert.NoError(t,put)
+
+		err := testCache.Delete(key)
+
+		//trying a different assert method based on the fact that a successful delete returns nil
+		assert.Nil(t,err,"delete test successful")
+	})
+
+	t.Run("delete error test", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "cat"
+
+		err := testCache.Delete(key)
+
+		assert.Error(t, err, "delete error works as expected")
+	})
+
+	t.Run("delete error test with empty key string", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := ""
+
+		err := testCache.Delete(key)
+
+		assert.Error(t, err, "delete error works as expected")
+	})
 }
