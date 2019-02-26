@@ -79,7 +79,34 @@ func TestRead(t *testing.T){
 		assert.Equal(t, f, value)
 	})
 
-	 t.Run("read test for error working", func(t *testing.T) {
+	t.Run("read test for diff keys", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Benelli"
+
+		key2 := "nickname"
+		value2 := "Benny"
+
+
+		err := testCache.Put(key, value)
+		assert.NoError(t, err)
+
+		f, _ := testCache.Read(key)
+		assert.Equal(t, f, value)
+
+		err2 := testCache.Put(key2, value2)
+		assert.NoError(t, err2)
+
+		v, _ := testCache.Read(key2)
+		assert.Equal(t,v,value2)
+
+		//being sure that the Read is reading different values for different keys with different test
+		assert.NotEqual(t, f,v)
+	})
+
+	t.Run("read test for error working", func(t *testing.T) {
 		testCache := &SimpleKeyValueCache{map[string]string{}}
 		require.NotNil(t, testCache)
 

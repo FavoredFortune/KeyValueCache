@@ -16,12 +16,12 @@ type SimpleKeyValueCache struct{
 	data map[string]string
 }
 
-//AHA! I was missing the constructor function for the cache! This is why tests were breaking NOPE - But leaving it just in case
+//Leaving in constructor function in case it's useful later
 func NewSimpleKVCache() *SimpleKeyValueCache{
 	return &SimpleKeyValueCache{map[string]string{}}
 }
 
-//per Troy don't need to check for cache here, this is a method of c - it is like "this in Java"
+//per Troy don't need to check for cache here, this is a method of c - it is like "'this'in Java"
 func (c *SimpleKeyValueCache) Put(key,value string) error{
 
 	//added if statement to match read behavior and logic for empty string
@@ -33,8 +33,7 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 	if err != "" {
 		return nil
 	}
-	return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
-
+	return fmt.Errorf("put failed: check key '%v' and value '%v' parameters and make sure cache is initialized  ",key, value)
 }
 
 //updated interface and method to return both string and error when realized SKVC wouldn't return an error when an empty string was entered as a key - not cool
@@ -44,7 +43,6 @@ func (c *SimpleKeyValueCache) Read(key string) (string,error){
 		return "",fmt.Errorf("read failed: key '%v' invalid", key)
 	}
 	return f, nil
-
 }
 
 func (c *SimpleKeyValueCache) Update(key, value string) error{
