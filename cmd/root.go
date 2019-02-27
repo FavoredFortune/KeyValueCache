@@ -17,7 +17,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -27,13 +26,19 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "CLI - KVCache",
-	Short: "a simple CLI key-value cache app",
+	Use:   "cli",
+	Short: "a simple key-value cache cli",
 	Long: `input your action and your key;value pair to put, read, update or delete your content from the cache`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	Run: func(cmd *cobra.Command, args []string) { },
 }
+
+var putCmd = &cobra.Command{
+	Use: "put",
+	Short: "put key-value pair",
+	
+
+
+}
+
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
@@ -44,24 +49,13 @@ func Execute() {
 	}
 }
 
-//not sure if this is the right approach to create my own CLI help set of commands/flags still reading - placeholder for now
-
-////maybe not? maybe adding more to the current cobra commands?
-////still reading
-//func CLI(){
-//	if err := rootCmd.Execute(); err !=nil {
-//		fmt.Println(err)
-//		os.Exit(1)
-//	}
-//}
-
 func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.newApp.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.KVCache.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -83,7 +77,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".newApp" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".newApp")
+		viper.SetConfigName(".KVCache")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
