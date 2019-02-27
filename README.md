@@ -34,7 +34,10 @@ _more soon_
 - More on flags in Go: https://gobyexample.com/command-line-flags
 - If I want to build a CLI using the Go CLI library: https://tutorialedge.net/golang/building-a-cli-in-go/
 
--
+- For help on Cobra work around for auto generating command files - after using command with -t for package name, must go get file from gocode folder and put in app folder
+https://github.com/spf13/cobra/pull/817
+
+- Tutorial on building a CLI with Cobra: https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html
 
 ## Reference code from earlier in the project
 
