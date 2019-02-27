@@ -32,7 +32,12 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "cli",
 	Short: "a simple key-value cache cli",
-	Long:  `This is a CLI app that allows you to input your action and your key;value pair of strings put, read, update or delete your content from the cache`,
+	Long:  `This is a CLI app that allows you to input your action and your key;value pair of strings.
+
+	Actions available include put, read, update or delete your content from the cache.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("Let's get started!")
+	},
 }
 
 var putCmd = &cobra.Command{
