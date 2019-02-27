@@ -15,12 +15,16 @@
 package cmd
 
 import (
+	"KVCache/kvcache"
+	"errors"
 	"fmt"
-	"os"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"os"
 )
+
+var cache = kvcache.NewSimpleKVCache()
 
 var cfgFile string
 
@@ -28,17 +32,21 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "cli",
 	Short: "a simple key-value cache cli",
-	Long: `input your action and your key;value pair to put, read, update or delete your content from the cache`,
+	Long:  `This is a CLI app that allows you to input your action and your key;value pair of strings put, read, update or delete your content from the cache`,
 }
 
 var putCmd = &cobra.Command{
-	Use: "put",
+	Use:   "put",
 	Short: "put key-value pair",
-	
-
-
+	Long:  "put key value strings into the key-value cache",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 3 {
+			return errors.New("put failed: put command and both key and value strings")
+		}
+		cache.Put(args[1], args[2])
+		return nil
+	},
 }
-
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
@@ -87,4 +95,3 @@ func initConfig() {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
-
