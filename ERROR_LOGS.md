@@ -124,6 +124,27 @@ FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s
    FAIL
    exit status 1
    ```
+- 2/27/19 2:37pm
+Trying to put server/handler logic in root command and it creates a panic...likely because sometimes the args isn't log enough for some if statements in the switch cases?
+```gotemplate
+go run main.go
+panic: runtime error: index out of range
+
+goroutine 1 [running]:
+KVCache/cmd.glob..func1(0x17eab60, 0x1810360, 0x0, 0x0, 0x0, 0x0)
+	/Users/srichm/gocode/src/KVCache/cmd/root.go:40 +0x5af
+github.com/spf13/cobra.(*Command).execute(0x17eab60, 0xc00008c190, 0x0, 0x0, 0x17eab60, 0xc00008c190)
+	/Users/srichm/gocode/src/github.com/spf13/cobra/command.go:762 +0x473
+github.com/spf13/cobra.(*Command).ExecuteC(0x17eab60, 0x1495bf0, 0x1, 0x0)
+	/Users/srichm/gocode/src/github.com/spf13/cobra/command.go:852 +0x2fd
+github.com/spf13/cobra.(*Command).Execute(0x17eab60, 0x1007220, 0xc000082058)
+	/Users/srichm/gocode/src/github.com/spf13/cobra/command.go:800 +0x2b
+KVCache/cmd.Execute()
+	/Users/srichm/gocode/src/KVCache/cmd/root.go:94 +0x2d
+main.main()
+	/Users/srichm/gocode/src/KVCache/main.go:22 +0x20
+exit status 2
+```
 
 ## IDE Error Logs
 -2/25 & 26/19
@@ -135,3 +156,4 @@ FAIL	_/Users/srichm/Uber/KVCache/kvcache	0.016s
    Compilation finished with exit code 2
 ```
 Above error is happening due to IDE looking for root and path in wrong folders per Troy Dai.
+

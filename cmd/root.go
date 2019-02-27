@@ -24,6 +24,7 @@ import (
 	"os"
 )
 
+//use constructor from kvchache package for global access to struct and it's private fields per Troy
 var cache = kvcache.NewSimpleKVCache()
 
 var cfgFile string
@@ -32,26 +33,60 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "cli",
 	Short: "a simple key-value cache cli",
-	Long:  `This is a CLI app that allows you to input your action and your key;value pair of strings.
+	Long: `This is a CLI app that allows you to input your action and your key;value pair of strings.
 
-	Actions available include put, read, update or delete your content from the cache.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Let's get started!")
-	},
-}
-
-var putCmd = &cobra.Command{
-	Use:   "put",
-	Short: "put key-value pair",
-	Long:  "put key value strings into the key-value cache",
+	Actions available include put, read,  update or delete your content from the cache.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		if len(args) < 3 {
-			return errors.New("put failed: put command and both key and value strings")
+		switch args[0] {
+
+		case "put":
+			if len(args) < 3 {
+				return errors.New("put failed: put command and both key and value strings required")
+			}
+			cache.Put(args[1], args[2])
+
+		case "read":
+			if len(args) < 2 {
+				return fmt.Errorf("READ command incomplete: %v", args)
+			}
+			_, readResult := cache.Read(args[1])
+			fmt.Println(">", readResult)
+
+		case "update":
+			if len(args) < 3 {
+				return fmt.Errorf("UPDATE command incomplete: %v", args)
+			}
+			err := cache.Update(args[1], args[2])
+			if err != nil {
+				return err
+			}
+
+		case "delete":
+			if len(args) < 2 {
+				return fmt.Errorf("DELETE command incomplete: %v", args)
+			}
+			err := cache.Delete(args[1])
+			if err != nil {
+				return err
+			}
 		}
-		cache.Put(args[1], args[2])
 		return nil
 	},
 }
+
+//var putCmd = &cobra.Command{
+//	Use:   "put",
+//	Short: "put key-value pair",
+//	Long:  "put key value strings into the key-value cache",
+//	RunE: func(cmd *cobra.Command, args []string) error {
+//
+//		if len(args) < 3 {
+//			return errors.New("put failed: put command and both key and value strings required")
+//		}
+//		cache.Put(args[1], args[2])
+//		return nil
+//	},
+//}
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
@@ -73,6 +108,23 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+
+	//maybe don't need flags at all can put logic all in initial command?
+	//persistent flags
+	//putCmd.PersistentFlags().StringSlice("put","put data in cache")
+	//
+	//putCmd.Flags().String
+	//
+	////bind flags
+	//viper.BindPFlag("put", putCmd.PersistentFlags().Lookup("put"))
+
+	//local flags
+	//do I need them?
+	//
+	////commands
+	//putCmd.AddCommand(putCmd)
+
 }
 
 // initConfig reads in config file and ENV variables if set.
