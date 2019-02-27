@@ -39,6 +39,9 @@ https://github.com/spf13/cobra/pull/817
 
 - Tutorial on building a CLI with Cobra: https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html
 
+#### Practice CLI project
+- See https://github.com/FavoredFortune/CobraCLI for application with instructions in the [README](https://github.com/FavoredFortune/CobraCLI/blob/master/README.md)
+
 ## Reference code from earlier in the project
 
 ```go
