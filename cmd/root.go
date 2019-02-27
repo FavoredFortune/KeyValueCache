@@ -29,19 +29,27 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "CLI - KVCache",
 	Short: "a simple CLI key-value cache app",
-	Long: `Like many other CLI applications in Go, this is a CLI that uses the Cobra library. 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long: `input your action and your key;value pair to put, read, update or delete your content from the cache`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) { },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+//not sure if this is the right approach to create my own CLI help set of commands/flags still reading - placeholder for now
+
+//maybe not? maybe adding more to the current cobra commands?
+//still reading
+func CLI(){
+	if err := rootCmd.Execute(); err !=nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
@@ -85,3 +93,4 @@ func initConfig() {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
+
