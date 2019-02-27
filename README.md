@@ -113,3 +113,43 @@ func handleInput(cache KeyValueCache, input string) error {
 }
 ```
 
+command?
+```gotemplate
+	//RunE: func(cmd *cobra.Command, args []string) error {
+	//	switch args[0] {
+	//
+	//	case "put":
+	//		if len(args) < 3 {
+	//			return errors.New("put failed: put command and both key and value strings required")
+	//		}
+	//		cache.Put(args[1], args[2])
+	//
+	//	case "read":
+	//		if len(args) < 2 {
+	//			return fmt.Errorf("READ command incomplete: %v", args)
+	//		}
+	//		_, readResult := cache.Read(args[1])
+	//		fmt.Println(">", readResult)
+	//
+	//	case "update":
+	//		if len(args) < 3 {
+	//			return fmt.Errorf("UPDATE command incomplete: %v", args)
+	//		}
+	//		err := cache.Update(args[1], args[2])
+	//		if err != nil {
+	//			return err
+	//		}
+	//
+	//	case "delete":
+	//		if len(args) < 2 {
+	//			return fmt.Errorf("DELETE command incomplete: %v", args)
+	//		}
+	//		err := cache.Delete(args[1])
+	//		if err != nil {
+	//			return err
+	//		}
+	//	}
+	//	return nil
+	//},
+```
+
