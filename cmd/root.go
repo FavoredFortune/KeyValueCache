@@ -46,14 +46,14 @@ func Execute() {
 
 //not sure if this is the right approach to create my own CLI help set of commands/flags still reading - placeholder for now
 
-//maybe not? maybe adding more to the current cobra commands?
-//still reading
-func CLI(){
-	if err := rootCmd.Execute(); err !=nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
+////maybe not? maybe adding more to the current cobra commands?
+////still reading
+//func CLI(){
+//	if err := rootCmd.Execute(); err !=nil {
+//		fmt.Println(err)
+//		os.Exit(1)
+//	}
+//}
 
 func init() {
 	cobra.OnInitialize(initConfig)
