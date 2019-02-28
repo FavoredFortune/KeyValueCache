@@ -40,7 +40,7 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 func (c *SimpleKeyValueCache) Read(key string) (string,error){
 	f, err := c.data[key]
 	if err != true {
-		return "",fmt.Errorf("read failed: key '%v' invalid", key)
+		return "",fmt.Errorf("read failed: key '%v' invalid or cache empty", key)
 	}
 	return f, nil
 }

@@ -2,7 +2,7 @@ package kvcache
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/requi≠≠re"
+	"github.com/stretchr/testify/require"
 	"testing"
 )
 

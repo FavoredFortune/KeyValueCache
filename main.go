@@ -21,11 +21,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+//use constructor from kvchache package for global access to struct and it's private fields per Troy
+var cache = kvcache.NewSimpleKVCache()
 
 func main() {
-
-	//use constructor from kvchache package for global access to struct and it's private fields per Troy
-	var cache = kvcache.NewSimpleKVCache()
 
 	//make root command not executable without subcommand by not providing a 'Run' for the 'rootCmd'
 	var RootCmd = &cobra.Command{Use:"cli"}
@@ -42,6 +41,7 @@ func main() {
 			cache.Put(args[0], args[1])
 			fmt.Printf(" key '%v' and value '%v' put into the cache", args[0], args[1])
 			fmt.Println()
+			fmt.Println(cache.Read(args[0]))
 			return nil
 		},
 	}
