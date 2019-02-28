@@ -13,7 +13,7 @@ type KeyValueCache interface{
 }
 
 type SimpleKeyValueCache struct{
-	data map[string]string
+	Data map[string]string
 }
 
 //Leaving in constructor function in case it's useful later
@@ -28,36 +28,41 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 	if key =="" || value =="" {
 		return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
 	}
-	c.data[key]=value
-	err := c.data[key]
-	if err != "" {
-		return nil
+
+	//added to check if key exists and reject put if key does already exist
+	if _, ok := c.Data[key]; ok {
+		return fmt.Errorf("put failed: key '%v' isn't unqiue: ", key)
 	}
-	return fmt.Errorf("put failed: check key '%v' and value '%v' parameters and make sure cache is initialized  ",key, value)
+	c.Data[key] = value
+	//testing if put really assigns value to cache
+	//result := c.Data[key]
+	//fmt.Println(result)
+	return nil
 }
 
 //updated interface and method to return both string and error when realized SKVC wouldn't return an error when an empty string was entered as a key - not cool
 func (c *SimpleKeyValueCache) Read(key string) (string,error){
-	f, err := c.data[key]
-	if err != true {
-		return "",fmt.Errorf("read failed: key '%v' invalid", key)
+	f, err := c.Data[key]
+	if err == false {
+		return "",fmt.Errorf("read failed: key '%v' invalid or cache empty", key)
 	}
+	fmt.Println(f)
 	return f, nil
 }
 
 func (c *SimpleKeyValueCache) Update(key, value string) error{
-	_, keyExists := c.data[key]
+	_, keyExists := c.Data[key]
 	if keyExists {
-		c.data[key] = value
+		c.Data[key] = value
 		return nil
 	}
 	return fmt.Errorf("update failed: key '%v' not in cache", key)
 }
 
 func (c *SimpleKeyValueCache) Delete(key string) error{
-	_, keyExist := c.data[key]
+	_, keyExist := c.Data[key]
 	if keyExist{
-		delete(c.data, key)
+		delete(c.Data, key)
 		return nil
 	}
 	return fmt.Errorf("delete failed: key '%v' not in cache",key)

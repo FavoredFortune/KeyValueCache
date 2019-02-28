@@ -42,7 +42,7 @@ func TestPut(t *testing.T) {
 	})
 
 	//added to align with read error and tests
-	t.Run(" put test for error working", func(t *testing.T) {
+	t.Run(" put test for empty string error working", func(t *testing.T) {
 		testCache := &SimpleKeyValueCache{map[string]string{}}
 		require.NotNil(t, testCache)
 		key2 := ""
@@ -53,6 +53,26 @@ func TestPut(t *testing.T) {
 
 		_,err := testCache.Read(key2)
 		assert.ObjectsAreEqualValues(err, "read failed: key '' invalid")
+	})
+
+	//add test for repeat use of key
+	t.Run(" put test for key repeat error working", func(t *testing.T) {
+		testCache := &SimpleKeyValueCache{map[string]string{}}
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "bobby"
+		err := testCache.Put(key,value)
+		assert.NoError(t, err, "no error in put")
+		//errR,_ := testCache.Read(key)
+
+		key2 := "name"
+		value2 := "betty"
+		err2 := testCache.Put(key2, value2)
+		assert.Error(t, err2, "put failed: key ' ' isn't unqiue: ")
+		//_, err2R := testCache.Read(key2)
+		//assert.NotEqual(t, errR ,err2R)
+
 	})
 }
 
