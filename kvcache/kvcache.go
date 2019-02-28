@@ -30,7 +30,6 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 	}
 
 	//added to check if key exists and reject put if key does already exist
-
 	if _, ok := c.Data[key]; ok {
 		return fmt.Errorf("put failed: key '%v' isn't unqiue: ", key)
 	}
