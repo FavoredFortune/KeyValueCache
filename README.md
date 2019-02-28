@@ -39,9 +39,20 @@ https://github.com/spf13/cobra/pull/817
 
 - Tutorial on building a CLI with Cobra: https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html
 
+- Make sub commands shared to convert to functions: https://stackoverflow.com/questions/43747075/cobra-commander-how-to-call-a-command-from-another-command
+
+- Cobra Documentation: https://github.com/spf13/cobra
+
+- Go Documentation on flags: https://golang.org/pkg/flag/
+
+- More on flags: https://flaviocopes.com/go-command-line-flags/
+
+#### Practice CLI project
+- See https://github.com/FavoredFortune/CobraCLI for application with instructions in the [README](https://github.com/FavoredFortune/CobraCLI/blob/master/README.md)
+
 ## Reference code from earlier in the project
 
-```go
+```gotemplate
 func kvcache() {
 	testInput := `
 PUT name Sooz
@@ -61,7 +72,7 @@ READ name
 
 }
 ```
-```go
+```gotemplate
 func handleInput(cache KeyValueCache, input string) error {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 
@@ -106,5 +117,45 @@ func handleInput(cache KeyValueCache, input string) error {
 
 	return nil
 }
+```
+
+command?
+```gotemplate
+	//RunE: func(cmd *cobra.Command, args []string) error {
+	//	switch args[0] {
+	//
+	//	case "put":
+	//		if len(args) < 3 {
+	//			return errors.New("put failed: put command and both key and value strings required")
+	//		}
+	//		cache.Put(args[1], args[2])
+	//
+	//	case "read":
+	//		if len(args) < 2 {
+	//			return fmt.Errorf("READ command incomplete: %v", args)
+	//		}
+	//		_, readResult := cache.Read(args[1])
+	//		fmt.Println(">", readResult)
+	//
+	//	case "update":
+	//		if len(args) < 3 {
+	//			return fmt.Errorf("UPDATE command incomplete: %v", args)
+	//		}
+	//		err := cache.Update(args[1], args[2])
+	//		if err != nil {
+	//			return err
+	//		}
+	//
+	//	case "delete":
+	//		if len(args) < 2 {
+	//			return fmt.Errorf("DELETE command incomplete: %v", args)
+	//		}
+	//		err := cache.Delete(args[1])
+	//		if err != nil {
+	//			return err
+	//		}
+	//	}
+	//	return nil
+	//},
 ```
 

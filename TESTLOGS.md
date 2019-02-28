@@ -188,3 +188,52 @@ ok  	_/Users/srichm/Uber/KVCache/kvcache	0.017s
        --- PASS: TestDelete/delete_error_test (0.00s)
        --- PASS: TestDelete/delete_error_test_with_empty_key_string (0.00s)
    ```
+   
+- 2/27/19 2:44 PM CLI terminal test of command "put" (not quite right but close)
+```
+go run main.go
+This is a CLI app that allows you to input your action and your key;value pair of strings.
+
+	Actions available include put, read,  update or delete your content from the cache.
+
+srichm :~/gocode/src/KVCache :[weds-cli !] ./main put horse animal
+srichm :~/gocode/src/KVCache :[weds-cli !] ./main put
+Error: put failed: put command and both key and value strings required
+Usage:
+  cli [flags]
+
+Flags:
+      --config string   config file (default is $HOME/.KVCache.yaml)
+  -h, --help            help for cli
+  -t, --toggle          Help message for toggle
+
+put failed: put command and both key and value strings required
+```
+
+- 2/27/19 4:14 PM
+IDE Debug of main at Execute command break point shows help menu with both sub commands listed so execute works
+```rror: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] cli put name steve
+   -bash: cli: command not found
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put animal horse
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+```
