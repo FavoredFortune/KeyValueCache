@@ -209,3 +209,31 @@ Flags:
 
 put failed: put command and both key and value strings required
 ```
+
+- 2/27/19 4:14 PM
+IDE Debug of main at Execute command break point shows help menu with both sub commands listed so execute works
+```rror: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] cli put name steve
+   -bash: cli: command not found
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put animal horse
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+```

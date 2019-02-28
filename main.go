@@ -17,6 +17,7 @@ package main
 import (
 	"KVCache/kvcache"
 	"errors"
+	"flag"
 	"fmt"
 	"github.com/spf13/cobra"
 )
@@ -60,6 +61,15 @@ func main() {
 	//attach subcommands to rootcommand
 	RootCmd.AddCommand(putCmd, readCmd)
 	RootCmd.Execute()
+
+	//build flags
+	//https://gobyexample.com/command-line-flags
+	cmdPtr := flag.String("cmd", "args", "a string (Required)")
+
+	flag.Parse()
+
+	fmt.Println("cmd:", *cmdPtr)
+	fmt.Println("tail:", flag.Args())
 }
 
 

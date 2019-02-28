@@ -160,6 +160,47 @@ srichm :~/gocode/src/KVCache :[weds-cli !] ./main read animal
 srichm :~/gocode/src/KVCache :[weds-cli !] 
 ```
 
+- 2/27/19 4:13 PM Error message in put working with simplified code but put command itself not putting anything. 
+```Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] cli put name steve
+   -bash: cli: command not found
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+   
+   srichm :~/gocode/src/KVCache :[weds-cli !x?] ./cli put animal horse
+   Error: >>put failed: put command and both key and value strings required
+   Usage:
+     cli put [flags]
+   
+   Flags:
+     -h, --help   help for put
+```
+
+- 2/27/19 4:47pm
+Simple flags operating on their own, but not incorporated to put correctly - YET!
+```srichm :~/gocode/src/KVCache :[weds-cli !] ./cli put name bene
+  Error: >>put failed: put command and both key and value strings required
+  Usage:
+    cli put [flags]
+  
+  Flags:
+    -h, --help   help for put
+  
+  cmd: args
+  tail: [put name bene]
+```
+
 ## IDE Error Logs
 - 2/25 & 26/19
 ```# command-line-arguments [command-line-arguments.test]
