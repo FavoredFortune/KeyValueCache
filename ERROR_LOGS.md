@@ -145,9 +145,23 @@ main.main()
 	/Users/srichm/gocode/src/KVCache/main.go:22 +0x20
 exit status 2
 ```
+- 2/27/19 2:51 PM Read command appears to work, but proves put command doesn't work (error does, but it doesn't add content to KVC)
+```gotemplate
+srichm :~/gocode/src/KVCache :[weds-cli] go run main.go
+This is a CLI app that allows you to input your action and your key;value pair of strings.
+
+	Actions available include put, read,  update or delete your content from the cache.
+
+srichm :~/gocode/src/KVCache :[weds-cli !] ./main put horse animal
+srichm :~/gocode/src/KVCache :[weds-cli !] ./main read horse
+> read failed: key 'horse' invalid
+srichm :~/gocode/src/KVCache :[weds-cli !] ./main read animal
+> read failed: key 'animal' invalid
+srichm :~/gocode/src/KVCache :[weds-cli !] 
+```
 
 ## IDE Error Logs
--2/25 & 26/19
+- 2/25 & 26/19
 ```# command-line-arguments [command-line-arguments.test]
    ./kvcache_test.go:11:16: undefined: NewSimpleKVCache
    ./kvcache_test.go:23:17: undefined: SimpleKeyValueCache
@@ -156,4 +170,8 @@ exit status 2
    Compilation finished with exit code 2
 ```
 Above error is happening due to IDE looking for root and path in wrong folders per Troy Dai.
+- 2/27/19
+   * Fixed IDE error by changing project structure and go env variables
+   * IDE tests work now
+
 
