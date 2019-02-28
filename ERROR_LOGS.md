@@ -277,6 +277,23 @@ srichm :~/gocode/src/KVCache :[weds-cli !] go build -o cli
    Run 'cli --help' for usage.
    srichm :~/gocode/src/KVCache :[weds-cli !] 
    ```
+   
+-2/28/19 10:46 AM
+Put command working as expected - can even call read method within it - but Read command erroring out
+```srichm :~/gocode/src/KVCache :[thurs-cli !] go build -o cli
+   srichm :~/gocode/src/KVCache :[thurs-cli !] ./cli put name Bene
+   [name Bene] 2
+    key 'name' and value 'Bene' put into the cache
+   Bene <nil>
+   srichm :~/gocode/src/KVCache :[thurs-cli !] ./cli read name
+   [name] 1
+   Error: read failed: key 'name' invalid or cache empty
+   Usage:
+     cli read [flags]
+   
+   Flags:
+     -h, --help   help for read
+ ```
 
 ## IDE Error Logs
 - 2/25 & 26/19
