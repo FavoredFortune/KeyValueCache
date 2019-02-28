@@ -17,10 +17,10 @@ package main
 import (
 	"KVCache/kvcache"
 	"errors"
-	"flag"
 	"fmt"
 	"github.com/spf13/cobra"
 )
+
 
 func main() {
 
@@ -31,28 +31,36 @@ func main() {
 	var RootCmd = &cobra.Command{Use:"cli"}
 	var putCmd = &cobra.Command{
 		Use:   "put",
+		Args: cobra.MinimumNArgs(2),
 		Short: "put key-value pair",
 		Long:  "put key value strings into the key-value cache",
 		RunE: func(cmd *cobra.Command, args []string) error {
-
-			if len(args) < 3 {
-				return errors.New(">>put failed: put command and both key and value strings required")
+			fmt.Println(args, len(args))
+			if cache == nil {
+				return errors.New("cache not initialized - put failed: ")
 			}
-			cache.Put(args[1], args[2])
-			fmt.Printf(" key '%v' and value '%v' put into the cache", args[1], args[2])
+			cache.Put(args[0], args[1])
+			fmt.Printf(" key '%v' and value '%v' put into the cache", args[0], args[1])
+			fmt.Println()
 			return nil
 		},
 	}
 
+	//trying use of minimum args in command to avoid writing RunE function with error to test for args length
 	var readCmd = &cobra.Command{
 		Use:"read",
-		Short: "read value given key",
+		Short: "read given key and return value",
+		Args: cobra.MinimumNArgs(1),
 		Long: "read value string out to command line from key-value cache given key string input from command line",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if len(args) < 2 {
-				return fmt.Errorf(">>read failed: %v", args)
+		RunE: func(cmd *cobra.Command, args []string) error  {
+			fmt.Println(args, len(args))
+			if cache == nil {
+				return errors.New("cache empty - read failed: ")
 			}
-			_, readResult := cache.Read(args[2])
+			readResult, err := cache.Read(args[0])
+			if err !=nil {
+				return err
+			}
 			fmt.Println(">>", readResult)
 			return nil
 		},
@@ -61,21 +69,10 @@ func main() {
 	//attach subcommands to rootcommand
 	RootCmd.AddCommand(putCmd, readCmd)
 	RootCmd.Execute()
+
+
 }
 
-//per Go flag docs, moving flag declarations into init func
-func init(){
-	//build flags
-	//https://gobyexample.com/command-line-flags
-	putPtr := flag.String( "put", "key value", "a key-value pair of strings to put in cache (Required)")
-
-	//call parse on flag after defining all flags
-	//https://flaviocopes.com/go-command-line-flags/
-	flag.Parse()
-	flag.Args()
-
-	fmt.Println("put:", *putPtr)
-}
 
 
 
