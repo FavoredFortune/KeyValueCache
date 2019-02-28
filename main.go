@@ -34,15 +34,16 @@ func main() {
 		Short: "put key-value pair",
 		Long:  "put key value strings into the key-value cache",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println(args, len(args))
 			if cache == nil {
 				return errors.New("cache not initialized - put failed: ")
 			}
-			cache.Put(args[0], args[1])
-			fmt.Printf(" key '%v' and value '%v' put into the cache", args[0], args[1])
-			fmt.Println()
-			fmt.Println(cache.Read(args[0]))
-			return nil
+			putResult := cache.Put(args[0],args[1])
+			if putResult == nil {
+				fmt.Printf("put success:  cache '%v' ", cache)
+				fmt.Println()
+				return nil
+			}
+			return errors.New("put fail")
 		},
 	}
 
