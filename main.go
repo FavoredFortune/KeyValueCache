@@ -61,15 +61,20 @@ func main() {
 	//attach subcommands to rootcommand
 	RootCmd.AddCommand(putCmd, readCmd)
 	RootCmd.Execute()
+}
 
+//per Go flag docs, moving flag declarations into init func
+func init(){
 	//build flags
 	//https://gobyexample.com/command-line-flags
-	cmdPtr := flag.String("cmd", "args", "a string (Required)")
+	putPtr := flag.String( "put", "key value", "a key-value pair of strings to put in cache (Required)")
 
+	//call parse on flag after defining all flags
+	//https://flaviocopes.com/go-command-line-flags/
 	flag.Parse()
+	flag.Args()
 
-	fmt.Println("cmd:", *cmdPtr)
-	fmt.Println("tail:", flag.Args())
+	fmt.Println("put:", *putPtr)
 }
 
 

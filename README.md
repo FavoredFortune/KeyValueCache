@@ -43,12 +43,16 @@ https://github.com/spf13/cobra/pull/817
 
 - Cobra Documentation: https://github.com/spf13/cobra
 
+- Go Documentation on flags: https://golang.org/pkg/flag/
+
+- More on flags: https://flaviocopes.com/go-command-line-flags/
+
 #### Practice CLI project
 - See https://github.com/FavoredFortune/CobraCLI for application with instructions in the [README](https://github.com/FavoredFortune/CobraCLI/blob/master/README.md)
 
 ## Reference code from earlier in the project
 
-```go
+```gotemplate
 func kvcache() {
 	testInput := `
 PUT name Sooz
@@ -68,7 +72,7 @@ READ name
 
 }
 ```
-```go
+```gotemplate
 func handleInput(cache KeyValueCache, input string) error {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 

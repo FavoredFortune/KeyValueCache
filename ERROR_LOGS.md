@@ -200,6 +200,83 @@ Simple flags operating on their own, but not incorporated to put correctly - YET
   cmd: args
   tail: [put name bene]
 ```
+- 2/28/19 6:00 PM
+Flag for put is starting to work, but not parsing args as expected, losing second part of string slice
+```srichm :~/gocode/src/KVCache :[weds-cli !] ./cli -put name bene
+   Error: unknown command "name" for "cli"
+   Run 'cli --help' for usage.
+   put: name
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli
+   Usage:
+     cli [command]
+   
+   Available Commands:
+     help        Help about any command
+     put         put key-value pair
+     read        read value given key
+   
+   Flags:
+     -h, --help   help for cli
+   
+   Use "cli [command] --help" for more information about a command.
+   put: 
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli --put name bene
+   Error: unknown command "bene" for "cli"
+   Run 'cli --help' for usage.
+   put: name
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli name bene --put
+   Error: unknown command "name" for "cli"
+   Run 'cli --help' for usage.
+   put: 
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli name --put bene
+   Error: unknown command "name" for "cli"
+   Run 'cli --help' for usage.
+   put: 
+
+```
+
+- 2/27/19 6:09 PM flag.Parse and flag.Args appear to work correctly if default value is string with length of 2, but still doesn't work with command of length of two.
+```srichm :~/gocode/src/KVCache :[weds-cli !] ./cli --put name bene
+   Error: unknown command "bene" for "cli"
+   Run 'cli --help' for usage.
+   put: name
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli --put
+   Error: unknown flag: --put
+   Usage:
+     cli [command]
+   
+   Available Commands:
+     help        Help about any command
+     put         put key-value pair
+     read        read value given key
+   
+   Flags:
+     -h, --help   help for cli
+   
+   Use "cli [command] --help" for more information about a command.
+   
+   flag needs an argument: -put
+   Usage of ./cli:
+     -put string
+       	a key-value pair of strings to put in cache (Required) (default "key value")
+
+```
+- 2/27/19 6:16 PM
+added init func and put flags there to see if it helped with parsing the args, but it doesn't change functionality..at least it doesn't break anything. 
+
+```
+srichm :~/gocode/src/KVCache :[weds-cli !] go build -o cli
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli --put
+   flag needs an argument: -put
+   Usage of ./cli:
+     -put string
+       	a key-value pair of strings to put in cache (Required) (default "key value")
+   srichm :~/gocode/src/KVCache :[weds-cli !] ./cli --put name bene
+   put: name
+   Error: unknown command "bene" for "cli"
+   Run 'cli --help' for usage.
+   srichm :~/gocode/src/KVCache :[weds-cli !] 
+   ```
 
 ## IDE Error Logs
 - 2/25 & 26/19
