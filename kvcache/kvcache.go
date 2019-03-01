@@ -42,12 +42,11 @@ func (c *SimpleKeyValueCache) Put(key,value string) error{
 
 //updated interface and method to return both string and error when realized SKVC wouldn't return an error when an empty string was entered as a key - not cool
 func (c *SimpleKeyValueCache) Read(key string) (string,error){
-	f, err := c.Data[key]
-	if err == false {
+	err := c.Data[key]
+	if err == ""{
 		return "",fmt.Errorf("read failed: key '%v' invalid or cache empty", key)
 	}
-	fmt.Println(f)
-	return f, nil
+	return err, nil
 }
 
 func (c *SimpleKeyValueCache) Update(key, value string) error{
