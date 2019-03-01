@@ -26,12 +26,12 @@ func (c *SimpleKeyValueCache) Create(key,value string) error{
 
 	//added if statement to match read behavior and logic for empty string
 	if key =="" || value =="" {
-		return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
+		return fmt.Errorf("create failed: check key '%v' and value '%v' parameters  ",key, value)
 	}
 
 	//added to check if key exists and reject put if key does already exist
 	if _, ok := c.Data[key]; ok {
-		return fmt.Errorf("put failed: key '%v' isn't unqiue: ", key)
+		return fmt.Errorf("create failed: key '%v' isn't unqiue: ", key)
 	}
 	c.Data[key] = value
 	//testing if put really assigns value to cache
