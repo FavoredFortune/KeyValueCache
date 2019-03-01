@@ -22,7 +22,7 @@ func NewSimpleKVCache() *SimpleKeyValueCache{
 }
 
 //per Troy don't need to check for cache here, this is a method of c - it is like "'this'in Java"
-func (c *SimpleKeyValueCache) Put(key,value string) error{
+func (c *SimpleKeyValueCache) Create(key,value string) error{
 
 	//added if statement to match read behavior and logic for empty string
 	if key =="" || value =="" {

@@ -13,7 +13,7 @@ func TestSimpleKeyValueCache(t *testing.T) {
 	})
 }
 
-func TestPut(t *testing.T) {
+func TestCreate(t *testing.T) {
 	t.Run("it can put and read", func(t *testing.T) {
 
 		testCache := &SimpleKeyValueCache{map[string]string{}}
@@ -21,7 +21,7 @@ func TestPut(t *testing.T) {
 
 		key := "testKey"
 		value := "testValue"
-		err := testCache.Put(key,value)
+		err := testCache.Create(key,value)
 
 		assert.NoError(t,err)
 		b, _ := testCache.Read(key)
@@ -34,7 +34,7 @@ func TestPut(t *testing.T) {
 		key2 := "123"
 		value2 := "Sooz"
 
-		err2 := testCache.Put(key2, value2)
+		err2 := testCache.Create(key2, value2)
 		assert.NoError(t, err2)
 
 		a,_ := testCache.Read(key2)
@@ -48,7 +48,7 @@ func TestPut(t *testing.T) {
 		key2 := ""
 		value2 := ""
 
-		err2 := testCache.Put(key2, value2)
+		err2 := testCache.Create(key2, value2)
 		assert.Error(t,err2,"put failed: check key '' and value '' parameters")
 
 		_,err := testCache.Read(key2)
@@ -62,13 +62,13 @@ func TestPut(t *testing.T) {
 
 		key := "name"
 		value := "bobby"
-		err := testCache.Put(key,value)
+		err := testCache.Create(key,value)
 		assert.NoError(t, err, "no error in put")
 		//errR,_ := testCache.Read(key)
 
 		key2 := "name"
 		value2 := "betty"
-		err2 := testCache.Put(key2, value2)
+		err2 := testCache.Create(key2, value2)
 		assert.Error(t, err2, "put failed: key ' ' isn't unqiue: ")
 		//_, err2R := testCache.Read(key2)
 		//assert.NotEqual(t, errR ,err2R)
@@ -85,7 +85,7 @@ func TestRead(t *testing.T){
 		key := "name"
 		value := "Scott"
 
-		err := testCache.Put(key,value)
+		err := testCache.Create(key,value)
 
 		assert.NoError(t, err)
 
@@ -105,13 +105,13 @@ func TestRead(t *testing.T){
 		value2 := "Benny"
 
 
-		err := testCache.Put(key, value)
+		err := testCache.Create(key, value)
 		assert.NoError(t, err)
 
 		f, _ := testCache.Read(key)
 		assert.Equal(t, f, value)
 
-		err2 := testCache.Put(key2, value2)
+		err2 := testCache.Create(key2, value2)
 		assert.NoError(t, err2)
 
 		v, _ := testCache.Read(key2)
@@ -128,7 +128,7 @@ func TestRead(t *testing.T){
 		key := "name"
 		value := "Scott"
 
-		err := testCache.Put(key, value)
+		err := testCache.Create(key, value)
 		assert.NoError(t, err)
 
 		f, _ := testCache.Read(key)
@@ -150,7 +150,7 @@ func TestUpdate(t *testing.T){
 		key := "name"
 		value := "Benelli"
 
-		put := testCache.Put(key,value)
+		put := testCache.Create(key,value)
 		assert.NoError(t,put)
 
 		key = "name"
@@ -184,7 +184,7 @@ func TestUpdate(t *testing.T){
 		key := "name"
 		value := "Benelli"
 
-		put := testCache.Put(key,value)
+		put := testCache.Create(key,value)
 		assert.NoError(t,put)
 
 		key = ""
@@ -207,7 +207,7 @@ func TestDelete(t *testing.T){
 		key := "name"
 		value := "Benelli"
 
-		put := testCache.Put(key,value)
+		put := testCache.Create(key,value)
 		assert.NoError(t,put)
 
 		err := testCache.Delete(key)

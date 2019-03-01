@@ -14,7 +14,7 @@ _more soon_
 
 ## User Stories
 - As a user I want a simple data structure, a **`key-value cache`** that holds a unique set of key:value pair of strings
-- As a user I want a method that allows me to add (**aka "put"**) a unique `key` and a `value` to the `cache`
+- As a user I want a method that allows me to add (**aka "create"**) a unique `key` and a `value` to the `cache`
 - As a user I want a method that allows me to **"read"** a `value` from the `cache` by providing just the unqiue `key`
 - As a user I want a method that allows me to **"update"** a `value` in the `cache` by providing the original, unique `key` and the new `value`
 - As a user I want a method that allows me to **"delete"** a unique `key-value` pair in the `cache
