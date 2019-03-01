@@ -14,17 +14,11 @@
 
 package main
 
-import (
-	_ "CacheCLI/cmd"
-)
+import "CacheCLI/cmd"
+
 
 func main() {
 
-	RootCmd.Execute()
-
+	cmd.Execute()
 
 }
-
-
-
-
