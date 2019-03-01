@@ -16,22 +16,22 @@ type SimpleKeyValueCache struct{
 	Data map[string]string
 }
 
-//Leaving in constructor function in case it's useful later
+//constructor function for generating cache
 func NewSimpleKVCache() *SimpleKeyValueCache{
 	return &SimpleKeyValueCache{map[string]string{}}
 }
 
 //per Troy don't need to check for cache here, this is a method of c - it is like "'this'in Java"
-func (c *SimpleKeyValueCache) Put(key,value string) error{
+func (c *SimpleKeyValueCache) Create(key,value string) error{
 
 	//added if statement to match read behavior and logic for empty string
 	if key =="" || value =="" {
-		return fmt.Errorf("put failed: check key '%v' and value '%v' parameters  ",key, value)
+		return fmt.Errorf("create failed: check key '%v' and value '%v' parameters  ",key, value)
 	}
 
 	//added to check if key exists and reject put if key does already exist
 	if _, ok := c.Data[key]; ok {
-		return fmt.Errorf("put failed: key '%v' isn't unqiue: ", key)
+		return fmt.Errorf("create failed: key '%v' isn't unique: ", key)
 	}
 	c.Data[key] = value
 	//testing if put really assigns value to cache
