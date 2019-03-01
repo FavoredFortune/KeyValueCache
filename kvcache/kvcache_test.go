@@ -223,9 +223,12 @@ func TestDelete(t *testing.T){
 		put := testCache.Create(key,value)
 		assert.NoError(t,put)
 
-		err := testCache.Delete(key)
-		//trying a different assert method based on the fact that a successful delete returns nil
-		assert.Nil(t,err,"delete test successful")
+		testCache.Delete(key)
+
+		_,readErr := testCache.Read(key)
+
+		assert.Error(t, readErr, "delete successful: key no longer in cache")
+
 	})
 
 	t.Run("delete returns error when key doesn't exist", func(t *testing.T) {
