@@ -7,16 +7,16 @@ import (
 )
 
 func TestSimpleKeyValueCache(t *testing.T) {
-	t.Run("new cache created", func(t *testing.T) {
+	t.Run("it creates new cache", func(t *testing.T) {
 		testCache := NewSimpleKVCache()
 		assert.NotNil(t, testCache)
 	})
 }
 
 func TestCreate(t *testing.T) {
-	t.Run("it can put and read", func(t *testing.T) {
+	t.Run("creates and reads successfully", func(t *testing.T) {
 
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "testKey"
@@ -28,8 +28,8 @@ func TestCreate(t *testing.T) {
 		assert.Equal(t, b, value)
 	})
 
-	t.Run("second put test", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("it creates successfully", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 		key2 := "123"
 		value2 := "Sooz"
@@ -42,22 +42,22 @@ func TestCreate(t *testing.T) {
 	})
 
 	//added to align with read error and tests
-	t.Run(" put test for empty string error working", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run(" create returns error when empty string given as parameter", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 		key2 := ""
 		value2 := ""
 
 		err2 := testCache.Create(key2, value2)
-		assert.Error(t,err2,"put failed: check key '' and value '' parameters")
+		assert.Error(t,err2,"create failed: check key '' and value '' parameters")
 
 		_,err := testCache.Read(key2)
 		assert.ObjectsAreEqualValues(err, "read failed: key '' invalid")
 	})
 
 	//add test for repeat use of key
-	t.Run(" put test for key repeat error working", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run(" create returns error when key already exists", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -69,7 +69,7 @@ func TestCreate(t *testing.T) {
 		key2 := "name"
 		value2 := "betty"
 		err2 := testCache.Create(key2, value2)
-		assert.Error(t, err2, "put failed: key ' ' isn't unqiue: ")
+		assert.Error(t, err2, "create failed: key ' ' isn't unique: ")
 		//_, err2R := testCache.Read(key2)
 		//assert.NotEqual(t, errR ,err2R)
 
@@ -78,24 +78,22 @@ func TestCreate(t *testing.T) {
 
 
 func TestRead(t *testing.T){
-	t.Run("it can read", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("reads successfully", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
 		value := "Scott"
 
 		err := testCache.Create(key,value)
-
 		assert.NoError(t, err)
 
 		f, _ := testCache.Read(key)
-
 		assert.Equal(t, f, value)
 	})
 
-	t.Run("read test for diff keys", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("read successfully when given different keys", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -121,8 +119,8 @@ func TestRead(t *testing.T){
 		assert.NotEqual(t, f,v)
 	})
 
-	t.Run("read test for error working", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("read returns error when given empty string", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -140,11 +138,27 @@ func TestRead(t *testing.T){
 		//updated tests to reflect new Read method signature and used Objects are Equal values due to the indirect reference to the error message in the assertion
 		assert.ObjectsAreEqualValues(err2, "read failed: key ' ' invalid")
 	})
+
+	t.Run("read returns error when given invalid key", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
+		require.NotNil(t, testCache)
+
+		key := "name"
+		value := "Scott"
+		invalidKey :="animal"
+
+		err := testCache.Create(key, value)
+		assert.NoError(t, err)
+
+		_, err2 := testCache.Read(invalidKey)
+
+		assert.Error(t,err2,"read failed: key invalid")
+	})
 }
 
 func TestUpdate(t *testing.T){
 	t.Run("it can update", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -163,8 +177,8 @@ func TestUpdate(t *testing.T){
 		assert.ObjectsAreEqualValues(read, value)
 	})
 	
-	t.Run("update error works", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("update returns error when key not in cache", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -177,8 +191,8 @@ func TestUpdate(t *testing.T){
 		assert.ObjectsAreEqualValues(read, value)
 	})
 
-	t.Run("empty key Update error test", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("update returns error when key is empty string", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -187,10 +201,9 @@ func TestUpdate(t *testing.T){
 		put := testCache.Create(key,value)
 		assert.NoError(t,put)
 
-		key = ""
+		key = " "
 		value = "Benny"
 		err := testCache.Update(key, value)
-
 		assert.ObjectsAreEqualValues(err, "update failed: key '%v' not in cache")
 
 		_, read := testCache.Read(key)
@@ -201,7 +214,7 @@ func TestUpdate(t *testing.T){
 
 func TestDelete(t *testing.T){
 	t.Run("it deletes", func(t *testing.T){
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "name"
@@ -211,30 +224,27 @@ func TestDelete(t *testing.T){
 		assert.NoError(t,put)
 
 		err := testCache.Delete(key)
-
 		//trying a different assert method based on the fact that a successful delete returns nil
 		assert.Nil(t,err,"delete test successful")
 	})
 
-	t.Run("delete error test", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("delete returns error when key doesn't exist", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := "cat"
 
 		err := testCache.Delete(key)
-
 		assert.Error(t, err, "delete error works as expected")
 	})
 
-	t.Run("delete error test with empty key string", func(t *testing.T) {
-		testCache := &SimpleKeyValueCache{map[string]string{}}
+	t.Run("delete returns error when given empty key string", func(t *testing.T) {
+		testCache := NewSimpleKVCache()
 		require.NotNil(t, testCache)
 
 		key := ""
 
 		err := testCache.Delete(key)
-
 		assert.Error(t, err, "delete error works as expected")
 	})
 }

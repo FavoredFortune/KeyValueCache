@@ -16,7 +16,7 @@ type SimpleKeyValueCache struct{
 	Data map[string]string
 }
 
-//Leaving in constructor function in case it's useful later
+//constructor function for generating cache
 func NewSimpleKVCache() *SimpleKeyValueCache{
 	return &SimpleKeyValueCache{map[string]string{}}
 }
@@ -31,7 +31,7 @@ func (c *SimpleKeyValueCache) Create(key,value string) error{
 
 	//added to check if key exists and reject put if key does already exist
 	if _, ok := c.Data[key]; ok {
-		return fmt.Errorf("create failed: key '%v' isn't unqiue: ", key)
+		return fmt.Errorf("create failed: key '%v' isn't unique: ", key)
 	}
 	c.Data[key] = value
 	//testing if put really assigns value to cache
